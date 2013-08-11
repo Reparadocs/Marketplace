@@ -1,0 +1,54 @@
+﻿@model IEnumerable<EIMarketplace.Models.Listing>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Listing")
+    @Html.ActionLink("Search", "Search", "Listing")
+</p>
+@if(Model.Count<EIMarketplace.Models.Listing>() > 0)
+{
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastActivity)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastActivity)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Listing", new { id = item.ID }, new { }) 
+            @Html.ActionLink("Details", "Details", "Listing", new { id = item.ID }, new { }) 
+            @Html.ActionLink("Delete", "Delete", "Listing", new { id = item.ID }, new { })
+        </td>
+    </tr>
+}
+
+</table>
+}

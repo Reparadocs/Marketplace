@@ -1,0 +1,64 @@
+﻿@model EIMarketplace.Models.Listing
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Listing</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Type)
+                @Html.RadioButtonFor(m => m.Type, EIMarketplace.Models.ListingType.Freelancer) Freelancer
+            </li>
+            <li>
+                @Html.RadioButtonFor(m => m.Type, EIMarketplace.Models.ListingType.Startup) Startup
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description, new { cols = 25, @rows = 5 })
+                @Html.ValidationMessageFor(m => m.Description)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Payment)
+                @Html.TextBoxFor(m => m.Payment)
+                @Html.ValidationMessageFor(m => m.Payment)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ExpirationDate)
+                @Html.TextBoxFor(m => m.ExpirationDate)
+                @Html.ValidationMessageFor(m => m.ExpirationDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AcceptType)
+                @Html.DropDownListFor(model => model.AcceptType, new SelectList(Enum.GetValues(typeof(EIMarketplace.Models.ListingAcceptType))))
+                @Html.LabelFor(m => m.AutoAcceptMax)
+                @Html.TextBoxFor(m => m.AutoAcceptMax)
+                @Html.ValidationMessageFor(m => m.AutoAcceptMax)
+            </li>
+        </ol>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Cancel", "Index", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

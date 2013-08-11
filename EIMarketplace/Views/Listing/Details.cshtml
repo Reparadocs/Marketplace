@@ -1,0 +1,45 @@
+﻿@model EIMarketplace.Models.Listing
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Listing</legend>
+
+    <ol>
+            <li>
+                @Html.LabelFor(m => m.Type)
+                @Html.DisplayTextFor(m => m.Type)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Title)
+                @Html.DisplayTextFor(m => m.Title)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.DisplayTextFor(m => m.Description)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Payment)
+                @Html.DisplayTextFor(m => m.Payment)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ExpirationDate)
+                @Html.DisplayTextFor(m => m.ExpirationDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AcceptType)
+                @Html.DisplayTextFor(model => model.AcceptType)
+                @Html.LabelFor(m => m.AutoAcceptMax)
+                @Html.DisplayTextFor(m => m.AutoAcceptMax)
+            </li>
+        </ol>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

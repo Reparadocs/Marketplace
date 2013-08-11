@@ -1,0 +1,24 @@
+﻿@model EIMarketplace.Models.UserProfile
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<p>Hi, <strong>@Model.Name</strong>!</p>
+
+<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+
+<p>You're email is <strong>@Model.Email</strong></p>
+
+<p>@Html.ActionLink("Edit Profile", "ChangeProfile", "Account")</p>
+
+@Html.ActionLink("Change Password", "ChangePassword", "Account")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
