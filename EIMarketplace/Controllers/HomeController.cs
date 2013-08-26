@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
+
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -17,18 +17,6 @@ namespace EIMarketplace.Controllers
     {
         private ListingDBContext db = new ListingDBContext();
 
-        public ActionResult LogIn()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ViewBag.Message = "Log In" + User.Identity.Name;
-                return View();
-            }
-        }
 
         public ActionResult Index()
         {
@@ -39,11 +27,17 @@ namespace EIMarketplace.Controllers
                 var userID = WebSecurity.GetUserId(User.Identity.Name);
                 listings = listings.Where(m => m.CreatorID == userID);
 
+                foreach (Listing l in listings)
+                {
+                    l.Title = TruncateTD(l.Title);
+                    l.Description = TruncateTD(l.Description);
+                }
+
                 return View(listings);
             }
             else
             {
-                return RedirectToAction("LogIn", "Home");
+                return RedirectToAction("Login", "Account");
             }
         }
 
@@ -60,5 +54,17 @@ namespace EIMarketplace.Controllers
 
             return View();
         }
+
+        public string TruncateTD(string longString)
+        {
+
+            int limit = 50;
+            if (longString.Length > limit)
+                return longString.Substring(0, limit) + "...";
+
+            return longString;
+        }
     }
+    
+
 }

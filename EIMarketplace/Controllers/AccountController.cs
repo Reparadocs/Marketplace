@@ -48,8 +48,6 @@ namespace EIMarketplace.Controllers
         //
         // POST: /Account/LogOff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
@@ -65,7 +63,6 @@ namespace EIMarketplace.Controllers
         {
             return View();
         }
-
         //
         // POST: /Account/Register
 

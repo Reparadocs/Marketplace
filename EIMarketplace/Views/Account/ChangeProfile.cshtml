@@ -3,16 +3,35 @@
     ViewBag.Title = "Change Profile";
 }
 
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
+            <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+
+              </ul>
+            </li>
+    }
+
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Change your profile.</h2>
+    <h1>@ViewBag.Title</h1>
 </hgroup>
     
 @using (Html.BeginForm()) {
     @Html.ValidationSummary()
 
-    <fieldset>
-        <legend>Registration Form</legend>
         <ol>
             <li>
                 @Html.LabelFor(m => m.Name)
@@ -24,7 +43,6 @@
             </li>
         </ol>
         <input type="submit" value="Change Profile" />
-    </fieldset>
 }
 
 @section Scripts {

@@ -759,3 +759,11 @@ tr.pager td {
             margin: 0;
         }
 }
+
+.AutomaticTruncation {
+display:block;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+width: 200px;
+}

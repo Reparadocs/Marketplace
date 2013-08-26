@@ -3,11 +3,30 @@
     ViewBag.Title = "Manage Account";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
+            <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+              </ul>
+            </li>
+    }
 
-<p class="message-success">@ViewBag.StatusMessage</p>
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
 
 <p>Hi, <strong>@Model.Name</strong>!</p>
 
@@ -15,9 +34,11 @@
 
 <p>You're email is <strong>@Model.Email</strong></p>
 
-<p>@Html.ActionLink("Edit Profile", "ChangeProfile", "Account")</p>
+<a href="@Url.Action("ChangeProfile", "Account")" class="btn btn-primary">Edit Profile</a>
 
-@Html.ActionLink("Change Password", "ChangePassword", "Account")
+<a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+
+<a href="@Url.Action("Log Off", "Account")" class="btn btn-danger">Log Off</a>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

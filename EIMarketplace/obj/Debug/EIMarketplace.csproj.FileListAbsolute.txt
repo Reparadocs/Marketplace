@@ -83,3 +83,4 @@ c:\users\rishab\documents\visual studio 2012\Projects\EIMarketplace\EIMarketplac
 c:\users\rishab\documents\visual studio 2012\Projects\EIMarketplace\EIMarketplace\obj\Debug\EIMarketplace.csprojResolveAssemblyReference.cache
 c:\users\rishab\documents\visual studio 2012\Projects\EIMarketplace\EIMarketplace\obj\Debug\EIMarketplace.dll
 c:\users\rishab\documents\visual studio 2012\Projects\EIMarketplace\EIMarketplace\obj\Debug\EIMarketplace.pdb
+C:\Users\Rishab\documents\visual studio 2012\Projects\EIMarketplace\EIMarketplace\bin\WebActivatorEx.dll

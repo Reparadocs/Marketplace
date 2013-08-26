@@ -1,22 +1,51 @@
 ﻿@model IEnumerable<EIMarketplace.Models.Listing>
  
 @{ 
-    ViewBag.Title = "Search"; 
+    ViewBag.Title = "Listing Directory"; 
 } 
  
-<h2>Search</h2> 
- 
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            <li class="active">@Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })</li>
+    
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+              </ul>
+            </li>
+    }
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
 <p> 
-    @Html.ActionLink("Create New", "Create") 
      @using (Html.BeginForm()){    
-         <p> Title: @Html.TextBox("SearchString") <br />   
-         <input type="submit" value="Search" /></p> 
+         <p> Search: @Html.TextBox("SearchString") <br />  </p>
+             <button type="submit" class="btn btn-danger">Search All</button>
+             <button name="button" type="submit" class="btn btn-primary"  value="SearchFreelancers">Search for a Freelancer</button> 
+             <button name="button" type="submit" class="btn btn-success" value="SearchStartups">Search for a Startup</button>
+             
+            
         } 
+
 </p> 
 
 @if(Model.Count<EIMarketplace.Models.Listing>() > 0)
 {
-<table>
+   
+<table style="width:800px;" class ="collection">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -32,17 +61,17 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
+        <td style="width: 200px;">
+            @Html.ActionLink(item.Title, "Details", "Listing", new { id = item.ID }, new {  })
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
+        <td style="width: 200px;">
+            @Html.ActionLink(item.Description, "Details", "Listing", new { id = item.ID }, new {  })
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Payment)
+        <td style="width: 200px;">
+            @Html.ActionLink(item.Payment.ToString(), "Details", "Listing", new { id = item.ID }, new { })
         </td>
     </tr>
 }
-
+    
 </table>
 }

@@ -1,63 +1,91 @@
 ﻿@model IEnumerable<EIMarketplace.Models.Listing>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Listings";
 }
 
-<h2>Index</h2>
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
+            <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Listings<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+              </ul>
+            </li>
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+
+
+@if(Model.Count<EIMarketplace.Models.Listing>() > 0)
+{
+<table class="mlisting">
     <tr>
+        @*
         <th>
-            @Html.DisplayNameFor(model => model.CreatorID)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
-        </th>
+        *@
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Payment)
         </th>
+        @*
         <th>
-            @Html.DisplayNameFor(model => model.AutoAcceptMax)
+            @Html.DisplayNameFor(model => model.LastActivity)
         </th>
-        <th></th>
+        *@
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        @*
         <td>
-            @Html.DisplayFor(modelItem => item.CreatorID)
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
+        *@
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Payment)
         </td>
+        @*
         <td>
-            @Html.DisplayFor(modelItem => item.AutoAcceptMax)
+            @Html.DisplayFor(modelItem => item.LastActivity)
         </td>
-        <td> 
-            @Html.ActionLink("Edit", "Edit", "Listing", new { id=item.ID }) 
-            @Html.ActionLink("Details", "Details", "Listing", new { id=item.ID }) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        *@
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Listing", new { id = item.ID }, new { }) 
+            </td>
+        <td>
+            @Html.ActionLink("Details", "ODetails", "Listing", new { id = item.ID }, new { }) 
+            </td>
+        <td>            @Html.ActionLink("Delete", "Delete", "Listing", new { id = item.ID }, new { })
         </td>
     </tr>
 }
 
 </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

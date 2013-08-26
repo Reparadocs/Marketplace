@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
+
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -22,19 +22,61 @@ namespace EIMarketplace.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Listings.ToList());
+            if (User.Identity.IsAuthenticated)
+            {
+                var listings = from m in db.Listings
+                               select m;
+                var userID = WebSecurity.GetUserId(User.Identity.Name);
+                listings = listings.Where(m => m.CreatorID == userID);
+
+                foreach (Listing l in listings)
+                {
+                    l.Title = TruncateTD(l.Title);
+                    l.Description = TruncateTD(l.Description);
+                }
+
+                return View(listings);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
 
-        public ActionResult Search(string searchString)
+        public ActionResult Search(string searchString, string button)
         {
             var listings = from m in db.Listings
-                         select m;
+                           select m;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                listings = listings.Where(s => s.Title.Contains(searchString) || s.Description.Contains(searchString));
+                var searchWords = searchString.Split(' ');
+                listings = listings.Where(s => searchWords.All(t => s.Title.Contains(t) || s.Description.Contains(t)));
+                //listings = listings.Where(s => s.Title.Contains(searchString) || s.Description.Contains(searchString));
             }
+
+            if (button != null)
+            {
+                switch (button)
+                {
+                    case "SearchFreelancers":
+                        listings = listings.Where(s => s.Type == ListingType.Freelancer);
+                        break;
+                    case "SearchStartups":
+                        listings = listings.Where(s => s.Type == ListingType.Startup);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (Listing l in listings)
+            {
+                l.Title = TruncateTD(l.Title);
+                l.Description = TruncateTD(l.Description);
+            }
+
 
             return View(listings);
         }
@@ -43,6 +85,24 @@ namespace EIMarketplace.Controllers
         //
         // GET: /Listing/Details/5
 
+        public ActionResult ODetails(int id = 0)
+        {
+            Listing listing = db.Listings.Find(id);
+            if (listing == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (listing.CreatorID == WebSecurity.GetUserId(User.Identity.Name))
+            {
+                return View(listing);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
         public ActionResult Details(int id = 0)
         {
             Listing listing = db.Listings.Find(id);
@@ -50,18 +110,28 @@ namespace EIMarketplace.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(listing);
+
         }
 
         //
         // GET: /Listing/Create
 
-        public ActionResult Create()
+        public ActionResult CreateFreelancer()
         {
             if (User.Identity.IsAuthenticated)
                 return View();
             else
-                return RedirectToAction("LogIn", "Home");
+                return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult CreateStartup()
+        {
+            if (User.Identity.IsAuthenticated)
+                return View();
+            else
+                return RedirectToAction("Login", "Account");
         }
 
         //
@@ -69,8 +139,9 @@ namespace EIMarketplace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Listing listing)
+        public ActionResult CreateFreelancer(Listing listing)
         {
+            /*
             if (listing.AutoAcceptMax == null)
             {
                 listing.AutoAcceptMax = 0;
@@ -82,11 +153,63 @@ namespace EIMarketplace.Controllers
             }
 
             listing.LastActivity = DateTime.Today;
-
+            */
             if (ModelState.IsValid)
             {
                 listing.Status = ListingStatus.Created;
+                listing.Type = ListingType.Freelancer;
+                 
+                /*
                 listing.CreatorID = WebSecurity.GetUserId(User.Identity.Name);
+                 */
+                using (var dbContext = new UsersContext())
+                {
+                    var user = dbContext.UserProfiles.Find(WebSecurity.GetUserId(User.Identity.Name));
+                    listing.CreatorID = user.UserId;
+                    listing.CreatorName = user.Name;
+                    listing.CreatorContact = user.Email;
+                    
+                }
+                db.Listings.Add(listing);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(listing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStartup(Listing listing)
+        {
+            /*
+            if (listing.AutoAcceptMax == null)
+            {
+                listing.AutoAcceptMax = 0;
+            }
+
+            if (listing.ExpirationDate == null)
+            {
+                listing.ExpirationDate = DateTime.MaxValue;
+            }
+
+            listing.LastActivity = DateTime.Today;
+            */
+            if (ModelState.IsValid)
+            {
+                listing.Status = ListingStatus.Created;
+                listing.Type = ListingType.Startup;
+
+                /*
+                listing.CreatorID = WebSecurity.GetUserId(User.Identity.Name);
+                 */
+                using (var dbContext = new UsersContext())
+                {
+                    var user = dbContext.UserProfiles.Find(WebSecurity.GetUserId(User.Identity.Name));
+                    listing.CreatorID = user.UserId;
+                    listing.CreatorName = user.Name;
+                    listing.CreatorContact = user.Email;
+                    
+                }
                 db.Listings.Add(listing);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -104,7 +227,15 @@ namespace EIMarketplace.Controllers
             {
                 return HttpNotFound();
             }
-            return View(listing);
+
+            if (listing.CreatorID == WebSecurity.GetUserId(User.Identity.Name))
+            {
+                return View(listing);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         //
@@ -114,6 +245,7 @@ namespace EIMarketplace.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Listing listing)
         {
+            /*
             if (listing.AutoAcceptMax == null)
             {
                 listing.AutoAcceptMax = 0;
@@ -125,7 +257,7 @@ namespace EIMarketplace.Controllers
             }
 
             listing.LastActivity = DateTime.Today;
-
+            */
             if (ModelState.IsValid)
             {
                 
@@ -149,7 +281,15 @@ namespace EIMarketplace.Controllers
             {
                 return HttpNotFound();
             }
-            return View(listing);
+
+            if (listing.CreatorID == WebSecurity.GetUserId(User.Identity.Name))
+            {
+                return View(listing);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         //
@@ -162,13 +302,23 @@ namespace EIMarketplace.Controllers
             Listing listing = db.Listings.Find(id);
             db.Listings.Remove(listing);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public string TruncateTD(string longString)
+        {
+
+            int limit = 50;
+            if (longString.Length > limit)
+                return longString.Substring(0, limit) + "...";
+
+            return longString;
         }
     }
 }

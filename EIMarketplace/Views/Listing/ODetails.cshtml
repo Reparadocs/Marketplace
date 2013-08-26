@@ -1,0 +1,67 @@
+﻿@model EIMarketplace.Models.Listing
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
+            <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Listings<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+              </ul>
+            </li>
+    }
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+
+    <ol>
+            <li>
+                @Html.LabelFor(m => m.Type)
+                @Html.DisplayTextFor(m => m.Type)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Title)
+                @Html.DisplayTextFor(m => m.Title)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.DisplayTextFor(m => m.Description)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Payment)
+                @Html.DisplayTextFor(m => m.Payment)
+            </li>
+        @*
+            <li>
+                @Html.LabelFor(m => m.ExpirationDate)
+                @Html.DisplayTextFor(m => m.ExpirationDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AcceptType)
+                @Html.DisplayTextFor(model => model.AcceptType)
+                @Html.LabelFor(m => m.AutoAcceptMax)
+                @Html.DisplayTextFor(m => m.AutoAcceptMax)
+            </li>
+        *@
+        </ol>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index", "Listing")
+</p>

@@ -1,0 +1,43 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+ol {
+    list-style-type:none;
+}
+
+
+
+
+
+
+
+table.collection tr:hover td{background-color:white;border-bottom:solid 1px gray;}
+table.collection tr {
+    border-bottom: solid 1px gray;
+}
+table.collection td a {text-decoration:none; display:block; color:black;}
+table.collection td {
+    padding:0px 15px 0px 0px;
+}
+
+table.mlisting td {
+    padding:0px 15px 0px 0px;
+}
+
+table.mlisting td a:hover {
+    text-decoration:none;
+    color: green;
+}
+
+label {
+    display: block;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.clisting input{
+    width: 750px;
+}

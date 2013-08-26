@@ -4,7 +4,31 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
+            <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Listings<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+              </ul>
+            </li>
+    }
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -14,7 +38,7 @@
         <legend>Listing</legend>
 
         @Html.HiddenFor(model => model.ID)
-
+        <div class="clisting">
         <ol>
             <li>
                 @Html.LabelFor(m => m.Type)
@@ -30,7 +54,7 @@
             </li>
             <li>
                 @Html.LabelFor(m => m.Description)
-                @Html.TextAreaFor(m => m.Description, new { cols = 25, @rows = 5 })
+                @Html.TextAreaFor(m => m.Description, new { cols = 80, @rows = 5 })
                 @Html.ValidationMessageFor(m => m.Description)
             </li>
             <li>
@@ -38,6 +62,7 @@
                 @Html.TextBoxFor(m => m.Payment)
                 @Html.ValidationMessageFor(m => m.Payment)
             </li>
+            @*
             <li>
                 @Html.LabelFor(m => m.ExpirationDate)
                 @Html.TextBoxFor(m => m.ExpirationDate)
@@ -50,8 +75,9 @@
                 @Html.TextBoxFor(m => m.AutoAcceptMax)
                 @Html.ValidationMessageFor(m => m.AutoAcceptMax)
             </li>
+               *@ 
         </ol>
-
+            </div>
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -59,7 +85,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cancel", "Index", "Listing")
 </div>
 
 @section Scripts {

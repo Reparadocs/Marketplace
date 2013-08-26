@@ -1,0 +1,81 @@
+﻿@model EIMarketplace.Models.Listing
+
+@{
+    ViewBag.Title = "Create a Listing as a Startup";
+}
+
+@section Banner{
+             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
+            @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("My Listings", "Index", "Listing")</li>
+                <li>@Html.ActionLink("My Account", "Manage", "Account")</li>
+                <li class="divider"></li>
+                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
+              </ul>
+            </li>
+            <li class="dropdown active">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Startup Listing<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Freelancer Listing", "CreateFreelancer", "Listing")</li>
+                <li>@Html.ActionLink("Startup Listing", "CreateStartup", "Listing")</li>
+              </ul>
+            </li>
+    }
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<a href="@Url.Action("CreateFreelancer", "Listing")" class="btn btn-primary">Create a Freelancer Listing instead</a>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="clisting">
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description, new { cols = 80, @rows = 5 })
+                @Html.ValidationMessageFor(m => m.Description)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Payment)
+                @Html.TextBoxFor(m => m.Payment)
+                @Html.ValidationMessageFor(m => m.Payment)
+            </li>
+            @*
+            <li>
+                @Html.LabelFor(m => m.ExpirationDate)
+                @Html.TextBoxFor(m => m.ExpirationDate)
+                @Html.ValidationMessageFor(m => m.ExpirationDate)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.AcceptType)
+                @Html.DropDownListFor(model => model.AcceptType, new SelectList(Enum.GetValues(typeof(EIMarketplace.Models.ListingAcceptType))))
+                @Html.LabelFor(m => m.AutoAcceptMax)
+                @Html.TextBoxFor(m => m.AutoAcceptMax)
+                @Html.ValidationMessageFor(m => m.AutoAcceptMax)
+            </li>
+                *@
+        </ol>
+    </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+
+}
+
+<a href="@Url.Action("Log Off", "Account")" class="btn btn-danger">Log Off</a>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
