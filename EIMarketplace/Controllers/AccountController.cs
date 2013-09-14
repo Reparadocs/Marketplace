@@ -79,7 +79,7 @@ namespace EIMarketplace.Controllers
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { Email = model.Email, Name = model.Name });
                     
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Search", "Listing");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -383,7 +383,7 @@ namespace EIMarketplace.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Search", "Listing");
             }
         }
 

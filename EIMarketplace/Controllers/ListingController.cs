@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using PagedList;
+using PagedList.Mvc;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -44,13 +45,17 @@ namespace EIMarketplace.Controllers
         }
 
 
-        public ActionResult Search(string searchString, string button)
+        public ActionResult Search(string searchString, string button, int? page)
         {
+            int pageSize = 5;
             var listings = from m in db.Listings
                            select m;
 
+          
+
             if (!String.IsNullOrEmpty(searchString))
             {
+                page = 1;
                 var searchWords = searchString.Split(' ');
                 listings = listings.Where(s => searchWords.All(t => s.Title.Contains(t) || s.Description.Contains(t)));
                 //listings = listings.Where(s => s.Title.Contains(searchString) || s.Description.Contains(searchString));
@@ -77,8 +82,11 @@ namespace EIMarketplace.Controllers
                 l.Description = TruncateTD(l.Description);
             }
 
+            IOrderedQueryable<Listing> orderedListings;
+            orderedListings = listings.OrderByDescending(s => s.Title);
 
-            return View(listings);
+            int pageNumber = (page ?? 1);
+            return View(orderedListings.ToPagedList(pageNumber, pageSize));
         }
 
         
@@ -172,7 +180,7 @@ namespace EIMarketplace.Controllers
                 }
                 db.Listings.Add(listing);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Search", "Listing");
             }
             return View(listing);
         }
@@ -212,7 +220,7 @@ namespace EIMarketplace.Controllers
                 }
                 db.Listings.Add(listing);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Search", "Listing");
             }
             return View(listing);
         }
@@ -265,7 +273,7 @@ namespace EIMarketplace.Controllers
                 listing.CreatorID = WebSecurity.GetUserId(User.Identity.Name);
                 db.Entry(listing).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Search", "Listing");
             }
 
             return View(listing);
@@ -302,7 +310,7 @@ namespace EIMarketplace.Controllers
             Listing listing = db.Listings.Find(id);
             db.Listings.Remove(listing);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Search", "Listing");
         }
 
         protected override void Dispose(bool disposing)

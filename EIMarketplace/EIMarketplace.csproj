@@ -40,6 +40,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.16.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.3.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -114,6 +120,10 @@
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Trirand.Web.Mvc, Version=4.5.3.0, Culture=neutral, PublicKeyToken=e2819dc449af3295, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Trirand.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
@@ -224,7 +234,9 @@
     <Content Include="Content\dist\js\bootstrap.js" />
     <Content Include="Content\dist\js\bootstrap.min.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\jumbotron.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -279,6 +291,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\ui.jqdropdownlist.css" />
+    <Content Include="Content\ui.jqgrid.css" />
+    <Content Include="Content\ui.jqtreeview.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -287,6 +302,7 @@
     <Content Include="Content\dist\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\dist\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Properties\PublishProfiles\reparadocs.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -305,6 +321,56 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-ar.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-bg.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-bg1251.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-cat.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-cn.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-cs.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-da.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-de.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-dk.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-el.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-en.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-es.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-fa.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-fi.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-fr.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-gl.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-he.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-hr.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-hr1250.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-hu.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-id.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-is.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-it.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-ja.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-kr.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-lt.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-mne.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-nl.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-no.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-pl.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-pt-br.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-pt.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-ro.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-ru.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-sk.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-sr-latin.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-sr.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-sv.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-th.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-tr.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-tw.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-ua.js" />
+    <Content Include="Scripts\trirand\i18n\grid.locale-vi.js" />
+    <Content Include="Scripts\trirand\jquery.jqAutoComplete.min.js" />
+    <Content Include="Scripts\trirand\jquery.jqChart.exporting.min.js" />
+    <Content Include="Scripts\trirand\jquery.jqChart.min.js" />
+    <Content Include="Scripts\trirand\jquery.jqDatePicker.min.js" />
+    <Content Include="Scripts\trirand\jquery.jqDropDownList.min.js" />
+    <Content Include="Scripts\trirand\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\trirand\jquery.jqTreeView.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -344,7 +410,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangeProfile.cshtml" />
     <Content Include="Views\Listing\Index.cshtml" />

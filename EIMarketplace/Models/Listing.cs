@@ -53,7 +53,7 @@ namespace EIMarketplace.Models
             */
              
             [Required]
-            [Display(Name = "Listing By")]
+            [Display(Name = "Listing Type")]
             public ListingType Type { get; set; }
 
             public ListingStatus Status { get; set; }

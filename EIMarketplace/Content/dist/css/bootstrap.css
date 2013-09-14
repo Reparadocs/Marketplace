@@ -26,6 +26,8 @@ summary {
   display: block;
 }
 
+
+
 audio,
 canvas,
 video {
@@ -2166,6 +2168,14 @@ fieldset[disabled] .btn-warning.active {
   color: #ffffff;
   background-color: #d9534f;
   border-color: #d43f3a;
+}
+
+.link-blue {
+    color: blue !important;
+}
+
+.link-green {
+    color: green !important;
 }
 
 .btn-danger:hover,

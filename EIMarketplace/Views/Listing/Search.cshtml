@@ -1,11 +1,12 @@
-﻿@model IEnumerable<EIMarketplace.Models.Listing>
- 
+﻿@model PagedList.IPagedList<EIMarketplace.Models.Listing>
+  @using PagedList;
+@using PagedList.Mvc;
 @{ 
+    
     ViewBag.Title = "Listing Directory"; 
 } 
  
 @section Banner{
-             @Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })
             <li class="active">@Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })</li>
     
             <li class="dropdown">
@@ -45,16 +46,19 @@
 @if(Model.Count<EIMarketplace.Models.Listing>() > 0)
 {
    
-<table style="width:800px;" class ="collection">
+<table class ="collection">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayName("Type")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayName("Title")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Payment)
+            @Html.DisplayName("Description")
+        </th>
+        <th>
+            @Html.DisplayName("Payment")
         </th>
 
     </tr>
@@ -62,9 +66,20 @@
 @foreach (var item in Model) {
     <tr>
         <td style="width: 200px;">
+            @if (item.Type == EIMarketplace.Models.ListingType.Freelancer)
+            { 
+                @Html.ActionLink(item.Type.ToString(), "Details", "Listing", new { id = item.ID }, new { @class = "link-blue" })
+            }
+            else 
+            {
+                @Html.ActionLink(item.Type.ToString(), "Details", "Listing", new { id = item.ID }, new { @class = "link-green" })
+            }
+            
+        </td>
+        <td style="width: 570px;">
             @Html.ActionLink(item.Title, "Details", "Listing", new { id = item.ID }, new {  })
         </td>
-        <td style="width: 200px;">
+        <td style="width: 570px;">
             @Html.ActionLink(item.Description, "Details", "Listing", new { id = item.ID }, new {  })
         </td>
         <td style="width: 200px;">
@@ -74,4 +89,11 @@
 }
     
 </table>
+    
+    
+
 }
+
+Page @( Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager( Model, page => Url.Action("Search", new { page }) )

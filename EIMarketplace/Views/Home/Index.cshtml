@@ -5,7 +5,6 @@
 }
 
 @section Banner{
-             <li class="active">@Html.ActionLink("Home", "Index", "Home", new {}, new { @class = "navbar-brand" })</li>
             @Html.ActionLink("Directory", "Search", "Listing", new {},new { @class = "navbar-brand" })
             <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name<b class="caret"></b></a>

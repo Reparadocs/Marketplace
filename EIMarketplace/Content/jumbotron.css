@@ -13,7 +13,6 @@ ol {
 
 
 
-
 table.collection tr:hover td{background-color:white;border-bottom:solid 1px gray;}
 table.collection tr {
     border-bottom: solid 1px gray;
@@ -29,7 +28,7 @@ table.mlisting td {
 
 table.mlisting td a:hover {
     text-decoration:none;
-    color: green;
+
 }
 
 label {

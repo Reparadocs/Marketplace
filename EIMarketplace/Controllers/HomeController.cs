@@ -22,6 +22,7 @@ namespace EIMarketplace.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                return RedirectToAction("Search", "Listing");/*
                 var listings = from m in db.Listings
                              select m;
                 var userID = WebSecurity.GetUserId(User.Identity.Name);
@@ -34,11 +35,13 @@ namespace EIMarketplace.Controllers
                 }
 
                 return View(listings);
+              */
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
+          
         }
 
         public ActionResult About()
