@@ -65,8 +65,7 @@ namespace EIMarketplace.Models
             public string Description { get; set; }
             
             [Required]
-            [Range(0,1000, ErrorMessage = "{0} must be a number between {1} and {2}")]
-            public Decimal Payment { get; set; }
+            public string Payment { get; set; }
 
             /*
             [Required]
